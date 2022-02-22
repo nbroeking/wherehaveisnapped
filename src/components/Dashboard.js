@@ -2,6 +2,14 @@ import React from 'react';
 import DeckGL from '@deck.gl/react';
 import {LineLayer} from '@deck.gl/layers';
 import NavBar from "./NavBar";
+import makeStyles from "@mui/styles/makeStyles";
+
+const useStyles = makeStyles((theme) => ({
+  body: {
+    height: "100%",
+    display: "flex"
+  }
+}));
 
 // Viewport settings
 const INITIAL_VIEW_STATE = {
@@ -19,18 +27,22 @@ const data = [
 
 // DeckGL react component
 function Dashboard() {
+
+  const classes = useStyles();
   const layers = [
     new LineLayer({id: 'line-layer', data})
   ];
 
   return (
     <React.Fragment>
-
-    <NavBar></NavBar>
-    <DeckGL
-    initialViewState={INITIAL_VIEW_STATE}
-    controller={true}
-    layers={layers} />
-    </React.Fragment>);
+      <NavBar></NavBar>
+      <div className={classes.body}>
+        <DeckGL
+          initialViewState={INITIAL_VIEW_STATE}
+          controller={true}
+          layers={layers} />
+      </div>
+    </React.Fragment>
+    );
 }
 export default Dashboard;
